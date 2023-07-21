@@ -12,7 +12,7 @@
 	<artifactId>maquinarias</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>maquinarias</name>
-	<description>Demo project for Spring Boot</description>
+	<description>El sistema permite a los usuarios registrar, planificar, ejecutar y dar seguimiento al mantenimiento preventivo y correctivo de diversas maquinarias, garantizando su óptimo rendimiento y prolongando su vida útil.</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>
