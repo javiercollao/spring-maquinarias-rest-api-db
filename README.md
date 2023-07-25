@@ -38,7 +38,7 @@ Entidad Proveedor
 * Como jefe de mantenimiento, se encarga de poder ver los precios de cada proveedor disponible.
 
 Entidad documentacion
-* Como jefe de mantenimiento, se encargar de 
+* Como jefe de mantenimiento, se encargar de tener un registro de la documentacion que cuenta el taller.
 
 
 
