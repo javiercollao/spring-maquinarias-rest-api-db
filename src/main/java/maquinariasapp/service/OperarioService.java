@@ -15,12 +15,15 @@ public class OperarioService {
     private OperarioRepository operarioRepository;
 
     public List<Operario> obtenerTodosLosOperarios(){
-        try {
-            return operarioRepository.findAll().stream().toList();
-        } catch (Exception e){
-            log.error(e.getMessage(), e);
-            throw new GeneralServiceException(e.getMessage(), e);
-        }
+        return operarioRepository.findAll().stream().toList();
+    }
+
+    public Operario crearNuevoOperario(Operario operario){
+        return operarioRepository.save(operario);
+    }
+
+    public Operario obtenerOperarioPorId(Long operarioId){
+        return operarioRepository.findById(operarioId).get();
     }
 
 }
