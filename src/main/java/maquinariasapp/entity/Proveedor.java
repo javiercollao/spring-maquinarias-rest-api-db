@@ -16,7 +16,7 @@ public class Proveedor {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_proveedor;
 
-    @Column(name="nombre_proveedor", length = 30, nullable = false)
+    @Column(name="nombre_proveedor", length = 50, nullable = false)
     private String nombre_proveedor;
 
 }

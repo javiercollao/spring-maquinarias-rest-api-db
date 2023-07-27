@@ -16,8 +16,8 @@ public class Operario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_operario;
 
-    @Column(name="cod_operario", length = 30, nullable = false)
-    private String cod_operario;
+    @Column(name="correo_operario", length = 30, nullable = false)
+    private String correo_operario;
 
     @Column(name="nombre_operario", length = 20)
     private String nombre_operario;
@@ -25,7 +25,7 @@ public class Operario {
     @Column(name="apellido_operario", length = 20)
     private String apellido_operario;
 
-    @Column(name="cargo_operario", length = 13)
+    @Column(name="cargo_operario", length = 30)
     private String cargo_operario;
 
 }
