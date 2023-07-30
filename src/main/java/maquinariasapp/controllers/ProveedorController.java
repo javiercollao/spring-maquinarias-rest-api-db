@@ -1,15 +1,38 @@
 package maquinariasapp.controllers;
 
+import maquinariasapp.dtos.ProveedorDTO;
+import maquinariasapp.entity.Proveedor;
+import maquinariasapp.service.ProveedorService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
+@RequestMapping("/api/v1/proveedores")
 public class ProveedorController {
-    @GetMapping(value="/proveedor/ingresar/")
-    public ResponseEntity<String> ingresarNuevo(){
-        return new ResponseEntity<String>("Nuevo proveedor",null, HttpStatus.OK);
+
+    @Autowired
+    ProveedorService proveedorService;
+
+    @PostMapping
+    public ResponseEntity<Proveedor> nuevoProveedor(@RequestBody ProveedorDTO proveedor){
+        Proveedor nuevoProveedor = proveedorService.crearNuevoProveedor(proveedor);
+        return new ResponseEntity<>(nuevoProveedor, HttpStatus.CREATED);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Proveedor>> obtenerTodasLosProveedores(){
+        List<Proveedor> todosLosProveedores = proveedorService.obtenerTodosLosProveedores();
+        return new ResponseEntity<>(todosLosProveedores, HttpStatus.OK);
+    }
+
+    @GetMapping(value="/{id}")
+    public ResponseEntity<Proveedor> consultarPorId(@PathVariable(value = "id") Long id){
+        Proveedor obtenerProveedor = proveedorService.obtenerProveedorPorId(id);
+        return new ResponseEntity<>(obtenerProveedor, HttpStatus.OK);
     }
 
     @GetMapping(value="/proveedor/actualizar/")
