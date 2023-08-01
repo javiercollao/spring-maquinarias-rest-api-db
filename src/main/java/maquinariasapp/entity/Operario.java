@@ -1,7 +1,11 @@
 package maquinariasapp.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -27,5 +31,10 @@ public class Operario {
 
     @Column(name="cargo_operario", length = 30)
     private String cargo_operario;
+
+    @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_ot")
+    @JsonIgnore
+    private List<Ot> ots = new ArrayList<>();
 
 }
