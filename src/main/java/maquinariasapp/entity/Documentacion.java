@@ -14,6 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table(name="documentacion")
+@Data
 public class Documentacion {
     @Id
     @Column(name="id_documentacion")
@@ -27,4 +28,5 @@ public class Documentacion {
     @JoinTable(name = "maquina_documentacion", joinColumns = @JoinColumn(name = "id_documentacion", referencedColumnName = "id_documentacion"), inverseJoinColumns = @JoinColumn(name = "id_maquinaria", referencedColumnName = "id_maquinaria"))
     @JsonIgnore
     private List<Maquinaria> maquinarias = new ArrayList<>();
+
 }

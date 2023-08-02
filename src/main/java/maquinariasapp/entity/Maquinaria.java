@@ -15,6 +15,7 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table(name="maquinaria")
+@Data
 public class Maquinaria {
     @Id
     @Column(name="id_maquinaria")
