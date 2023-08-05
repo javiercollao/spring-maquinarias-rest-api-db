@@ -7,18 +7,17 @@ import lombok.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Getter
-@Setter
-@Builder
-@AllArgsConstructor
-@NoArgsConstructor
+
+
 @Entity
 @Table(name="documentacion")
+@AllArgsConstructor
+@NoArgsConstructor
 @Data
 public class Documentacion {
     @Id
-    @Column(name="id_documentacion")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="id_documentacion", unique=true, nullable = false)
     private Long id_documentacion;
 
     @Column(name="tipo_documentacion", length = 30, nullable = false)

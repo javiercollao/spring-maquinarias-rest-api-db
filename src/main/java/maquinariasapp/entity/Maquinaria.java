@@ -8,17 +8,14 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-@Getter
-@Setter
-@Builder
-@AllArgsConstructor
-@NoArgsConstructor
 @Entity
 @Table(name="maquinaria")
+@AllArgsConstructor
+@NoArgsConstructor
 @Data
 public class Maquinaria {
     @Id
-    @Column(name="id_maquinaria")
+    @Column(name="id_maquinaria", unique=true, nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_maquinaria;
 
@@ -48,7 +45,7 @@ public class Maquinaria {
     @JsonIgnore
     private List<Ot> ots = new ArrayList<>();
 
-    @ManyToMany(mappedBy = "maquinarias")
+    @ManyToMany(mappedBy = "maquinarias", cascade = CascadeType.PERSIST)
     @JsonIgnore
     private List<Documentacion> docs = new ArrayList<>();
 

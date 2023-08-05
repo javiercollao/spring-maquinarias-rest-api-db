@@ -1,10 +1,13 @@
 package maquinariasapp.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
@@ -43,5 +46,9 @@ public class Ot {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "id_maquinaria")
     private Maquinaria maquinaria;
+
+    @ManyToMany(mappedBy = "ots", cascade = CascadeType.PERSIST)
+    @JsonIgnore
+    private List<ProveedorRepuesto> proveedorRepuestos = new ArrayList<>();
 
 }
