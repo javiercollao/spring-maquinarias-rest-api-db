@@ -20,8 +20,14 @@ public class Documentacion {
     @Column(name="id_documentacion", unique=true, nullable = false)
     private Long id_documentacion;
 
-    @Column(name="tipo_documentacion", length = 30, nullable = false)
-    private String tipo_documentacion;
+    @Column(name="desc_documentacion", length = 200, nullable = false)
+    private String desc_documentacion;
+
+    @Column(name="nombre_documentacion", length = 70, nullable = false)
+    private String nombre_documentacion;
+
+    @Column(name="archivo_documentacion", length = 255, nullable = false)
+    private String archivo_documentacion;
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "maquina_documentacion", joinColumns = @JoinColumn(name = "id_documentacion", referencedColumnName = "id_documentacion"), inverseJoinColumns = @JoinColumn(name = "id_maquinaria", referencedColumnName = "id_maquinaria"))

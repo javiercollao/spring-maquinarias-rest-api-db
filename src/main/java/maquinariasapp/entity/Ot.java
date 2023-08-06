@@ -39,11 +39,11 @@ public class Ot {
     @Column(name="clase_mantenimiento_ot", length = 50)
     private String clase_mantenimiento_ot;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "id_operario")
     private Operario operario;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "id_maquinaria")
     private Maquinaria maquinaria;
 
