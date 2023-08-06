@@ -106,17 +106,53 @@ public class DataSeeder implements ApplicationListener<ContextRefreshedEvent> {
         // Documentacion
 
         Documentacion doc_1 = new Documentacion();
-        doc_1.setTipo_documentacion("Documento 1");
+        doc_1.setDesc_documentacion("Documento 1");
+        doc_1.setNombre_documentacion("Manual de radio");
+        doc_1.setArchivo_documentacion("manual_2023_08_04_radio.pdf");
         List<Maquinaria> maqs = doc_1.getMaquinarias();
         maqs.add(maquinaria_1);
         maqs.add(maquinaria_2);
         documentacionRepository.save(doc_1);
 
         Documentacion doc_2 = new Documentacion();
-        doc_2.setTipo_documentacion("Documento 2");
+        doc_2.setDesc_documentacion("Documento 2");
+        doc_2.setNombre_documentacion("Manual de motor");
+        doc_2.setArchivo_documentacion("manual_2023_08_04_motor.pdf");
         List<Maquinaria> maqs_2 = doc_2.getMaquinarias();
         maqs_2.add(maquinaria_1);
         documentacionRepository.save(doc_2);
+
+        Documentacion doc_3 = new Documentacion();
+        doc_3.setDesc_documentacion("Documento 3");
+        doc_3.setNombre_documentacion("Manual X");
+        doc_3.setArchivo_documentacion("manual_r.pdf");
+        List<Maquinaria> maqs_3 = doc_3.getMaquinarias();
+        maqs_3.add(maquinaria_1);
+        documentacionRepository.save(doc_3);
+
+        Documentacion doc_4 = new Documentacion();
+        doc_4.setDesc_documentacion("Documento 4");
+        doc_4.setNombre_documentacion("Manual X");
+        doc_4.setArchivo_documentacion("manual_r.pdf");
+        documentacionRepository.save(doc_4);
+
+        Documentacion doc_5 = new Documentacion();
+        doc_5.setDesc_documentacion("Documento 5");
+        doc_5.setNombre_documentacion("Manual X");
+        doc_5.setArchivo_documentacion("manual_r.pdf");
+        documentacionRepository.save(doc_5);
+
+        Documentacion doc_6 = new Documentacion();
+        doc_6.setDesc_documentacion("Documento 6");
+        doc_6.setNombre_documentacion("Manual X");
+        doc_6.setArchivo_documentacion("manual_r.pdf");
+        documentacionRepository.save(doc_6);
+
+        Documentacion doc_7 = new Documentacion();
+        doc_7.setDesc_documentacion("Documento 7");
+        doc_7.setNombre_documentacion("Manual X");
+        doc_7.setArchivo_documentacion("manual_r.pdf");
+        documentacionRepository.save(doc_7);
 
 
         // Proveedores
