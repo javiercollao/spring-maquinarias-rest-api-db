@@ -1,26 +1,27 @@
 package maquinariasapp.controllers;
 
+import maquinariasapp.entity.Ot;
+import maquinariasapp.service.impl.OtService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/v1/ots")
 public class OtController {
-    @GetMapping(value="/ot/consultar/")
-    public ResponseEntity<String> consultarOtPorId(){
-        return new ResponseEntity<String>("Consulta por Codigo de maquinaria, OT",null, HttpStatus.OK);
+
+    @Autowired
+    OtService otService;
+    @GetMapping
+    public ResponseEntity<List<Ot>> obtenerOts(){
+        List<Ot> todasLasOts = otService.obtenerTodasLasOts();
+        return new ResponseEntity<>(todasLasOts, HttpStatus.OK);
     }
 
-    @GetMapping(value="/ot/consultarFecha/")
-    public ResponseEntity<String> consultarOtPorFecha(){
-        return new ResponseEntity<String>("Consulta fecha de mantenimiento para maquinaria de OT",null, HttpStatus.OK);
-    }
 
-    @GetMapping(value="/ot/actualizarObservacion/")
-    public ResponseEntity<String> actualizarOtObservacion(){
-        return new ResponseEntity<String>("actualizar OT, observacion",null, HttpStatus.OK);
-    }
 }

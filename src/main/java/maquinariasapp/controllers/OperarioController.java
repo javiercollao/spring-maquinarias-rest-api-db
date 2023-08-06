@@ -1,7 +1,7 @@
 package maquinariasapp.controllers;
 
 import maquinariasapp.entity.Operario;
-import maquinariasapp.service.OperarioService;
+import maquinariasapp.service.impl.OperarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
