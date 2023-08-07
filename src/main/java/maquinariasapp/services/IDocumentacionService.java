@@ -9,6 +9,6 @@ public interface IDocumentacionService {
     public List<Documentacion> obtenerTodasLasDocumentaciones(Pageable page);
     public Documentacion obtenerDocumentacionPorId(Long documentacionId);
     public Documentacion crearNuevaDocumentacion(Documentacion documentacion);
-    public Documentacion actualizarDocumentacion(Documentacion documentacion);
+    public Documentacion actualizarDocumentacion(Long id, Documentacion documentacion);
 
 }
