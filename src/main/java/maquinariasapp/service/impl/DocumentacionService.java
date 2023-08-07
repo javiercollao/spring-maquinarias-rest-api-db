@@ -3,6 +3,7 @@ package maquinariasapp.service.impl;
 import maquinariasapp.entity.Documentacion;
 import maquinariasapp.repository.DocumentacionRepository;
 import maquinariasapp.services.IDocumentacionService;
+import maquinariasapp.validators.DocumentacionValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -41,6 +42,7 @@ public class DocumentacionService implements IDocumentacionService {
     @Override
     public Documentacion crearNuevaDocumentacion(Documentacion documentacion) {
         try {
+            DocumentacionValidator.validacionDeGuardado(documentacion);
             return documentacionRepository.save(documentacion);
         }catch (Exception e){
             return null;
@@ -48,9 +50,10 @@ public class DocumentacionService implements IDocumentacionService {
     }
 
     @Override
-    public Documentacion actualizarDocumentacion(Documentacion documentacion) {
+    public Documentacion actualizarDocumentacion(Long id, Documentacion documentacion) {
         try {
-            Documentacion registro = documentacionRepository.findById(documentacion.getId_documentacion()).orElseThrow();
+            DocumentacionValidator.validacionDeGuardado(documentacion);
+            Documentacion registro = documentacionRepository.findById(id).orElseThrow();
             registro.setNombre_documentacion(documentacion.getNombre_documentacion());
             registro.setDesc_documentacion(documentacion.getDesc_documentacion());
             registro.setArchivo_documentacion(documentacion.getArchivo_documentacion());

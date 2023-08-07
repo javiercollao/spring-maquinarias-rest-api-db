@@ -10,6 +10,7 @@ import java.util.List;
 
 
 @Entity
+@Builder
 @Table(name="documentacion")
 @AllArgsConstructor
 @NoArgsConstructor
@@ -26,7 +27,7 @@ public class Documentacion {
     @Column(name="nombre_documentacion", length = 70, nullable = false)
     private String nombre_documentacion;
 
-    @Column(name="archivo_documentacion", length = 255, nullable = false)
+    @Column(name="archivo_documentacion", nullable = false)
     private String archivo_documentacion;
 
     @ManyToMany(cascade = CascadeType.ALL)

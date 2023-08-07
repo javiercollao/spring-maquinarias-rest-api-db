@@ -19,8 +19,11 @@ public class DocumentacionController {
     DocumentacionService documentacionService;
 
     @PostMapping
-    public ResponseEntity<String> crearDocumentacion(){
-        return new ResponseEntity<String>("Consulta toda lo disponible para maquinaria,Documentacion",null, HttpStatus.OK);
+    public ResponseEntity<Documentacion> crearDocumentacion(
+            @RequestBody Documentacion documentacion
+    ){
+        Documentacion doc = documentacionService.crearNuevaDocumentacion(documentacion);
+        return new ResponseEntity<>(doc, HttpStatus.CREATED);
     }
 
     @GetMapping
@@ -34,18 +37,27 @@ public class DocumentacionController {
         if (docs.isEmpty()){
             return ResponseEntity.noContent().build();
         }
-
         return new ResponseEntity<>(docs, HttpStatus.OK);
     }
 
     @GetMapping(value="/{id}")
-    public ResponseEntity<String> consultarPorId(){
-        return new ResponseEntity<String>("Consulta por Codigo,Documentacion",null, HttpStatus.OK);
+    public ResponseEntity<Documentacion> consultarPorId(
+            @PathVariable(value = "id") Long id
+    ){
+        Documentacion doc = documentacionService.obtenerDocumentacionPorId(id);
+        if(doc == null){
+            return ResponseEntity.noContent().build();
+        }
+        return new ResponseEntity<>(doc, HttpStatus.OK);
     }
 
     @PutMapping (value="/{id}")
-    public ResponseEntity<String> actualizarDocumentacion(){
-        return new ResponseEntity<String>("Consulta por Codigo,Documentacion",null, HttpStatus.OK);
+    public ResponseEntity<Documentacion> actualizarDocumentacion(
+            @PathVariable(value = "id") Long id,
+            @RequestBody Documentacion documentacion
+    ){
+        Documentacion doc = documentacionService.actualizarDocumentacion(id, documentacion);
+        return new ResponseEntity<>(doc, HttpStatus.OK);
     }
 
 }
