@@ -2,7 +2,9 @@ package maquinariasapp.converters;
 
 import maquinariasapp.dtos.DocumentacionDTO;
 import maquinariasapp.entity.Documentacion;
+import org.springframework.stereotype.Component;
 
+@Component
 public class DocumentacionConverter extends AbstractConverter<Documentacion, DocumentacionDTO>{
 
     @Override
@@ -20,6 +22,10 @@ public class DocumentacionConverter extends AbstractConverter<Documentacion, Doc
     public Documentacion fromDTO(DocumentacionDTO dto) {
         if(dto == null ) return null;
         return Documentacion.builder()
-                .
+                .id_documentacion(dto.getId_documentacion())
+                .nombre_documentacion(dto.getNombre_documentacion())
+                .desc_documentacion(dto.getDesc_documentacion())
+                .archivo_documentacion(dto.getArchivo_documentacion())
+                .build();
     }
 }
