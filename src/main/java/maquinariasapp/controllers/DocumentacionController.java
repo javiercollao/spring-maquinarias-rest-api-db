@@ -1,5 +1,7 @@
 package maquinariasapp.controllers;
 
+import maquinariasapp.converters.DocumentacionConverter;
+import maquinariasapp.dtos.DocumentacionDTO;
 import maquinariasapp.entity.Documentacion;
 import maquinariasapp.service.impl.DocumentacionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,16 +20,20 @@ public class DocumentacionController {
     @Autowired
     DocumentacionService documentacionService;
 
+    @Autowired
+    DocumentacionConverter documentacionConverter;
+
     @PostMapping
-    public ResponseEntity<Documentacion> crearDocumentacion(
-            @RequestBody Documentacion documentacion
+    public ResponseEntity<DocumentacionDTO> crearDocumentacion(
+            @RequestBody DocumentacionDTO documentacionDTO
     ){
-        Documentacion doc = documentacionService.crearNuevaDocumentacion(documentacion);
-        return new ResponseEntity<>(doc, HttpStatus.CREATED);
+        Documentacion doc = documentacionService.crearNuevaDocumentacion(documentacionConverter.fromDTO(documentacionDTO));
+        DocumentacionDTO registroDTO = documentacionConverter.fromEntity(doc);
+        return new ResponseEntity<>(registroDTO, HttpStatus.CREATED);
     }
 
     @GetMapping
-    public ResponseEntity<List<Documentacion>> obtenerTodasLasDocumentaciones(
+    public ResponseEntity<List<DocumentacionDTO>> obtenerTodasLasDocumentaciones(
             @RequestParam(value = "offset", required = false, defaultValue = "0") Integer pageNumber,
             @RequestParam(value = "limit", required = false, defaultValue = "5") Integer pageSize
     ){
@@ -37,27 +43,30 @@ public class DocumentacionController {
         if (docs.isEmpty()){
             return ResponseEntity.noContent().build();
         }
-        return new ResponseEntity<>(docs, HttpStatus.OK);
+        List <DocumentacionDTO> docsDTO = documentacionConverter.fromEntity(docs);
+        return new ResponseEntity<>(docsDTO, HttpStatus.OK);
     }
 
     @GetMapping(value="/{id}")
-    public ResponseEntity<Documentacion> consultarPorId(
+    public ResponseEntity<DocumentacionDTO> consultarPorId(
             @PathVariable(value = "id") Long id
     ){
         Documentacion doc = documentacionService.obtenerDocumentacionPorId(id);
         if(doc == null){
             return ResponseEntity.noContent().build();
         }
-        return new ResponseEntity<>(doc, HttpStatus.OK);
+        DocumentacionDTO docDTO = documentacionConverter.fromEntity(doc);
+        return new ResponseEntity<>(docDTO, HttpStatus.OK);
     }
 
     @PutMapping (value="/{id}")
-    public ResponseEntity<Documentacion> actualizarDocumentacion(
+    public ResponseEntity<DocumentacionDTO> actualizarDocumentacion(
             @PathVariable(value = "id") Long id,
-            @RequestBody Documentacion documentacion
+            @RequestBody DocumentacionDTO documentacionDTO
     ){
-        Documentacion doc = documentacionService.actualizarDocumentacion(id, documentacion);
-        return new ResponseEntity<>(doc, HttpStatus.OK);
+        Documentacion doc = documentacionService.actualizarDocumentacion(id, documentacionConverter.fromDTO(documentacionDTO));
+        DocumentacionDTO docDTO = documentacionConverter.fromEntity(doc);
+        return new ResponseEntity<>(docDTO, HttpStatus.OK);
     }
 
 }
