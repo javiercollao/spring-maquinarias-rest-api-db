@@ -10,5 +10,7 @@ public interface IDocumentacionService {
     public Documentacion obtenerDocumentacionPorId(Long documentacionId);
     public Documentacion crearNuevaDocumentacion(Documentacion documentacion);
     public Documentacion actualizarDocumentacion(Long id, Documentacion documentacion);
+    public Documentacion asignarMaquinariaADocumentacion(Long id_documentacion, Long id_maquinaria);
+    public Documentacion eliminarDocumentacionDeMaquinaria(Long id_documentacion, Long id_maquinaria);
 
 }
