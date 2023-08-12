@@ -83,7 +83,7 @@ public class DataSeeder implements ApplicationListener<ContextRefreshedEvent> {
         // Maquinarias
 
         Maquinaria maquinaria_1 = new Maquinaria();
-        maquinaria_1.setCod_maquinaria("RRKK92");
+        maquinaria_1.setPatente_maquinaria("rrkk43");
         maquinaria_1.setNombre_maquinaria("Escabadora PM");
         maquinaria_1.setTipo_maquinaria("Escabadora");
         maquinaria_1.setFecha_ingreso_maquinaria(LocalDateTime.now());
@@ -93,7 +93,7 @@ public class DataSeeder implements ApplicationListener<ContextRefreshedEvent> {
         maquinariaRepository.save(maquinaria_1);
 
         Maquinaria maquinaria_2 = new Maquinaria();
-        maquinaria_2.setCod_maquinaria("JVFR11");
+        maquinaria_2.setPatente_maquinaria("jvfr11");
         maquinaria_2.setNombre_maquinaria("Otra maquina PM");
         maquinaria_2.setTipo_maquinaria("Maquina");
         maquinaria_2.setFecha_ingreso_maquinaria(LocalDateTime.now());
