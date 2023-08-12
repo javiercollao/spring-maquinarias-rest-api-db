@@ -19,8 +19,8 @@ public class Maquinaria {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_maquinaria;
 
-    @Column(name="cod_maquinaria", length = 30, nullable = false)
-    private String cod_maquinaria;
+    @Column(name="patente_maquinaria", length = 30, nullable = false)
+    private String patente_maquinaria;
 
     @Column(name="nombre_maquinaria", length = 50)
     private String nombre_maquinaria;
