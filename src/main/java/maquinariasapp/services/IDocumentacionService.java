@@ -7,6 +7,7 @@ import java.util.List;
 
 public interface IDocumentacionService {
     public List<Documentacion> obtenerTodasLasDocumentaciones(Pageable page);
+    public List<Documentacion> obtenerDocumentacionesDeMaquinaria(Pageable page, Long maquinariaId);
     public Documentacion obtenerDocumentacionPorId(Long documentacionId);
     public Documentacion crearNuevaDocumentacion(Documentacion documentacion);
     public Documentacion actualizarDocumentacion(Long id, Documentacion documentacion);

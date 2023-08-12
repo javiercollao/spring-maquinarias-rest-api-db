@@ -44,6 +44,24 @@ public class DocumentacionService implements IDocumentacionService {
     }
 
     @Override
+    public List<Documentacion> obtenerDocumentacionesDeMaquinaria(Pageable page, Long maquinariaId) {
+        try{
+            List<Documentacion> all = documentacionRepository.findAll(page).toList();
+            List<Documentacion> docs = all.stream()
+                    .filter(doc -> doc.getMaquinarias().stream()
+                            .anyMatch(maquinaria -> Objects.equals(maquinaria.getId_maquinaria(), maquinariaId)))
+                    .collect(Collectors.toList());
+            return docs;
+        } catch (ValidateServiceException | NoDataFoundException e){
+            log.info(e.getMessage(), e);
+            throw e;
+        } catch (Exception e){
+            log.error(e.getMessage(), e);
+            throw new GeneralServiceException(e.getMessage(), e);
+        }
+    }
+
+    @Override
     @Transactional(readOnly = true)
     public Documentacion obtenerDocumentacionPorId(Long documentacionId) {
         try {

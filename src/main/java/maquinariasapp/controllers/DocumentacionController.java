@@ -63,6 +63,23 @@ public class DocumentacionController {
                 .createResponse(HttpStatus.OK);
     }
 
+    @GetMapping(value = "/maquinaria/{id_maquinaria}")
+    public ResponseEntity<WrapperResponse<List<DocumentacionDTO>>> obtenerDocumentacionesDeMaquinaria(
+            @PathVariable(value = "id_maquinaria") Long id_maquinaria,
+            @RequestParam(value = "offset", required = false, defaultValue = "0") Integer pageNumber,
+            @RequestParam(value = "limit", required = false, defaultValue = "5") Integer pageSize
+    ){
+        Pageable page = PageRequest.of(pageNumber, pageSize);
+        List<Documentacion> docs =  documentacionService.obtenerDocumentacionesDeMaquinaria(page, id_maquinaria);
+
+        if (docs.isEmpty()){
+            return ResponseEntity.noContent().build();
+        }
+        List <DocumentacionDTO> docsDTO = documentacionConverter.fromEntity(docs);
+        return new WrapperResponse<>(true, "success", docsDTO)
+                .createResponse(HttpStatus.OK);
+    }
+
     @PutMapping (value="/{id}")
     public ResponseEntity<WrapperResponse<DocumentacionDTO>> actualizarDocumentacion(
             @PathVariable(value = "id") Long id,
