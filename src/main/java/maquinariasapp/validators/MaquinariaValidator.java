@@ -55,7 +55,7 @@ public class MaquinariaValidator {
             throw new ValidateServiceException("El valor no es válido");
         }
 
-        if (maquinaria.getFecha_ingreso_maquinaria() == null || maquinaria.getFecha_ingreso_maquinaria().isEmpty()) {
+        if (maquinaria.getFecha_ingreso_maquinaria() == null) {
             throw new ValidateServiceException("La fecha de ingreso de la maquinaria es requerida");
         }
 
