@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import org.springframework.data.domain.Pageable;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.List;
 @Slf4j
 @Service
@@ -20,6 +22,7 @@ public class RepuestoService implements IRepuestoService {
     RepuestoRepository repuestoRepository;
 
     @Override
+    @Transactional
     public Repuesto crearNuevoRepuesto(Repuesto repuesto) {
         try{
             return repuestoRepository.save(repuesto);
@@ -33,6 +36,7 @@ public class RepuestoService implements IRepuestoService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Repuesto> obtenerTodosLosRepuestos(Pageable page) {
         try{
             List<Repuesto> resultado = repuestoRepository.findAll(page).toList();
@@ -47,6 +51,7 @@ public class RepuestoService implements IRepuestoService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Repuesto obtenerRepuestoPorId(Long id) {
         try{
             Repuesto resultado = repuestoRepository.findById(id)
@@ -62,6 +67,7 @@ public class RepuestoService implements IRepuestoService {
     }
 
     @Override
+    @Transactional
     public Repuesto actualizarDatosDeRepuesto(Long id, Repuesto repuesto) {
         try{
             Repuesto resultado = repuestoRepository.findById(id)

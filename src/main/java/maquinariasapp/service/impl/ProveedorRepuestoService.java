@@ -13,6 +13,7 @@ import maquinariasapp.repository.RepuestoRepository;
 import maquinariasapp.services.IProveedorRepuestoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Objects;
@@ -30,6 +31,7 @@ public class ProveedorRepuestoService implements IProveedorRepuestoService {
 
 
     @Override
+    @Transactional
     public ProveedorRepuesto crearRelacionProveedorRepuesto(ProveedorRepuesto proveedorRepuesto, Long repuestoId, Long proveedorId) {
         try{
             Proveedor registroProveedor = proveedorRepository.findById(proveedorId)
@@ -53,6 +55,7 @@ public class ProveedorRepuestoService implements IProveedorRepuestoService {
     }
 
     @Override
+    @Transactional
     public String eliminarRelacionProveedorRepuesto(Long proveedorRepuestoId) {
         try{
             ProveedorRepuesto registro = proveedorRepuestoRepository.findById(proveedorRepuestoId)
@@ -69,6 +72,7 @@ public class ProveedorRepuestoService implements IProveedorRepuestoService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<ProveedorRepuesto> obtenerRepuestosQueVendeProveedorPorId(Long proveedorId) {
         try{
             Proveedor registroProveedor = proveedorRepository.findById(proveedorId)
@@ -87,6 +91,7 @@ public class ProveedorRepuestoService implements IProveedorRepuestoService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<ProveedorRepuesto> obtenerProveedoresQueVendenUnRepuestoPorId(Long repuestoId) {
         try{
             Repuesto registroRepuesto = repuestoRepository.findById(repuestoId)
@@ -105,6 +110,7 @@ public class ProveedorRepuestoService implements IProveedorRepuestoService {
     }
 
     @Override
+    @Transactional
     public ProveedorRepuesto actualizarDatosRelacionProveedorRepuesto(Long proveedorRepuestoId, ProveedorRepuesto proveedorRepuesto) {
         try{
             ProveedorRepuesto registro = proveedorRepuestoRepository.findById(proveedorRepuestoId)

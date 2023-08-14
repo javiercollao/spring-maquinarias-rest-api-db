@@ -10,6 +10,7 @@ import maquinariasapp.services.IOperarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Pageable;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 @Slf4j
@@ -20,6 +21,7 @@ public class OperarioService implements IOperarioService {
 
 
     @Override
+    @Transactional(readOnly = true)
     public List<Operario> obtenerOperariosRegistrados(Pageable page) {
         try{
             return operarioRepository.findAll(page).toList();
@@ -33,6 +35,7 @@ public class OperarioService implements IOperarioService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Operario obtenerOperarioPorId(Long idOperario) {
         try{
             Operario resultado = operarioRepository.findById(idOperario)
@@ -48,6 +51,7 @@ public class OperarioService implements IOperarioService {
     }
 
     @Override
+    @Transactional
     public Operario crearNuevoOperario(Operario operario) {
         try{
             return operarioRepository.save(operario);
@@ -61,6 +65,7 @@ public class OperarioService implements IOperarioService {
     }
 
     @Override
+    @Transactional
     public Operario actualizarDatosOperario(Long idOperario, Operario operario) {
         try{
             Operario registro = operarioRepository.findById(idOperario)

@@ -10,6 +10,7 @@ import maquinariasapp.services.IMaquinariaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -21,6 +22,7 @@ public class MaquinariaService implements IMaquinariaService {
     MaquinariaRepository maquinariaRepository;
 
     @Override
+    @Transactional
     public Maquinaria crearNuevaMaquinaria(Maquinaria maquinaria){
        try {
            Maquinaria nuevaMaquinaria = new Maquinaria();
@@ -42,6 +44,7 @@ public class MaquinariaService implements IMaquinariaService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Maquinaria> obtenerTodosLasMaquinarias(Pageable page) {
         try{
             return maquinariaRepository.findAll(page).toList();
@@ -56,6 +59,7 @@ public class MaquinariaService implements IMaquinariaService {
 
 
     @Override
+    @Transactional(readOnly = true)
     public Maquinaria obtenerMaquinariaPorId(Long maquinariaId){
        try{
            Maquinaria maquinaria = maquinariaRepository.findById(maquinariaId)
@@ -72,6 +76,7 @@ public class MaquinariaService implements IMaquinariaService {
 
 
     @Override
+    @Transactional
     public Maquinaria actualizarMaquinaria(Long maquinariaId, Maquinaria maquinaria) {
         try {
             Maquinaria registro = maquinariaRepository.findById(maquinariaId)

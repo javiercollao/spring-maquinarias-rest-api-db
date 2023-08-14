@@ -44,6 +44,7 @@ public class DocumentacionService implements IDocumentacionService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Documentacion> obtenerDocumentacionesDeMaquinaria(Pageable page, Long maquinariaId) {
         try{
             List<Documentacion> all = documentacionRepository.findAll(page).toList();
@@ -113,6 +114,7 @@ public class DocumentacionService implements IDocumentacionService {
     }
 
     @Override
+    @Transactional
     public Documentacion asignarMaquinariaADocumentacion(Long id_documentacion, Long id_maquinaria) {
         try{
             Maquinaria maquinaria = maquinariaRepository.findById(id_maquinaria)
@@ -137,6 +139,7 @@ public class DocumentacionService implements IDocumentacionService {
     }
 
     @Override
+    @Transactional
     public Documentacion eliminarDocumentacionDeMaquinaria(Long id_documentacion, Long id_maquinaria) {
         try{
             Maquinaria maquinaria = maquinariaRepository.findById(id_maquinaria)

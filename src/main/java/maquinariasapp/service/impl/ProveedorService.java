@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import org.springframework.data.domain.Pageable;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.List;
 @Slf4j
 @Service
@@ -19,6 +21,7 @@ public class ProveedorService implements IProveedorService {
     private ProveedorRepository proveedorRepository;
 
     @Override
+    @Transactional
     public Proveedor crearNuevoProveedor(Proveedor proveedor) {
         try {
             Proveedor nuevoProveedor = new Proveedor();
@@ -34,6 +37,7 @@ public class ProveedorService implements IProveedorService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Proveedor obtenerProveedorPorId(Long id) {
         try{
             Proveedor registro = proveedorRepository.findById(id)
@@ -49,6 +53,7 @@ public class ProveedorService implements IProveedorService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Proveedor> obtenerProveedores(Pageable page) {
         try{
             return proveedorRepository.findAll(page).toList();
@@ -62,6 +67,7 @@ public class ProveedorService implements IProveedorService {
     }
 
     @Override
+    @Transactional
     public Proveedor actualizarDatosProveedor(Long id, Proveedor proveedor) {
         try{
             Proveedor registro = proveedorRepository.findById(id)

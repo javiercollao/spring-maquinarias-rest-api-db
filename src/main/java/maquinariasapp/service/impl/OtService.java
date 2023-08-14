@@ -14,6 +14,7 @@ import maquinariasapp.services.IOtService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.Comparator;
@@ -33,6 +34,7 @@ public class OtService implements IOtService {
     private OperarioRepository operarioRepository;
 
     @Override
+    @Transactional(readOnly = true)
     public List<Ot> obtenerTodasLasOt(Pageable page) {
         try{
             return otRepository.findAll(page).toList();
@@ -46,6 +48,7 @@ public class OtService implements IOtService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Ot obtenerOtPorId(Long otId) {
         try{
             Ot resultado = otRepository.findById(otId)
@@ -61,6 +64,7 @@ public class OtService implements IOtService {
     }
 
     @Override
+    @Transactional
     public Ot crearNuevaOt(Long operarioId, Long maquinariaId, Ot ot) {
         try{
             Maquinaria maquinariaResultado = maquinariaRepository.findById(maquinariaId)
@@ -86,6 +90,7 @@ public class OtService implements IOtService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Ot> obtenerOtsPorMaquinaria(Long maquinariaId) {
         try{
             Maquinaria maquinariaResultado = maquinariaRepository.findById(maquinariaId)
@@ -103,6 +108,7 @@ public class OtService implements IOtService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Ot obtenerUltimaOtDeMaquinaria(Long maquinariaId) {
         try{
             Maquinaria maquinariaResultado = maquinariaRepository.findById(maquinariaId)
@@ -128,6 +134,7 @@ public class OtService implements IOtService {
     }
 
     @Override
+    @Transactional
     public Ot actualizarDatosDeOt(Long otId, Ot ot) {
         try{
             Ot otResultado = otRepository.findById(otId)
