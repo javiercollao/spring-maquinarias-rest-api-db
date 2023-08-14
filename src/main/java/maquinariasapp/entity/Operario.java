@@ -7,13 +7,13 @@ import lombok.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
+@Table(name="operario")
 @Getter
 @Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
-@Table(name="operario")
 @Data
 public class Operario {
     @Id

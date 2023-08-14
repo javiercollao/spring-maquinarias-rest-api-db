@@ -10,6 +10,9 @@ import java.util.List;
 
 @Entity
 @Table(name="maquinaria")
+@Getter
+@Setter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Data

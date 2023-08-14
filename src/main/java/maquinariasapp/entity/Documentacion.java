@@ -10,8 +10,10 @@ import java.util.List;
 
 
 @Entity
-@Builder
 @Table(name="documentacion")
+@Getter
+@Setter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Data

@@ -7,13 +7,15 @@ import lombok.*;
 import java.util.ArrayList;
 import java.util.List;
 
+
+@Entity
+@Table(name="proveedor")
 @Getter
 @Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
-@Table(name="proveedor")
+@Data
 public class Proveedor {
     @Id
     @Column(name="id_proveedor")

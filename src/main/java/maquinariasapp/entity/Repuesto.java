@@ -7,13 +7,14 @@ import lombok.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
+@Table(name="repuesto")
 @Getter
 @Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
-@Table(name="repuesto")
+@Data
 public class Repuesto {
     @Id
     @Column(name="id_repuesto")
