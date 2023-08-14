@@ -110,7 +110,7 @@ public class ProveedorRepuestoService implements IProveedorRepuestoService {
             ProveedorRepuesto registro = proveedorRepuestoRepository.findById(proveedorRepuestoId)
                     .orElseThrow(()-> new NoDataFoundException("No existe el registro con ese ID."));
             registro.setCantidad_repuesto(proveedorRepuesto.getCantidad_repuesto());
-            proveedorRepuestoRepository.delete(registro);
+            return proveedorRepuestoRepository.save(registro);
         } catch (ValidateServiceException | NoDataFoundException e){
             log.info(e.getMessage(), e);
             throw e;
