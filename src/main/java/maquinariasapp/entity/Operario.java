@@ -21,16 +21,16 @@ public class Operario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_operario;
 
-    @Column(name="correo_operario", length = 30, nullable = false)
+    @Column(name="correo_operario", nullable = false)
     private String correo_operario;
 
     @Column(name="nombre_operario", length = 20)
     private String nombre_operario;
 
-    @Column(name="apellido_operario", length = 20)
+    @Column(name="apellido_operario", length = 30)
     private String apellido_operario;
 
-    @Column(name="cargo_operario", length = 30)
+    @Column(name="cargo_operario", length = 50)
     private String cargo_operario;
 
     @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
