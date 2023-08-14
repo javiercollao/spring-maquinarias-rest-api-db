@@ -1,9 +1,13 @@
 package maquinariasapp.controllers;
 
+import maquinariasapp.converters.MaquinariaConverter;
 import maquinariasapp.dtos.MaquinariaDTO;
 import maquinariasapp.entity.Maquinaria;
 import maquinariasapp.service.impl.MaquinariaService;
+import maquinariasapp.utils.WrapperResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,27 +21,49 @@ public class MaquinariaController {
     @Autowired
     MaquinariaService maquinariaService;
 
+    @Autowired
+    MaquinariaConverter maquinariaConverter;
+
     @PostMapping
-    public ResponseEntity<Maquinaria> nuevaMaquinaria(@RequestBody MaquinariaDTO maquinaria){
-        Maquinaria nuevaMaquinaria = maquinariaService.crearNuevaMaquinaria(maquinaria);
-        return new ResponseEntity<>(nuevaMaquinaria, HttpStatus.CREATED);
+    public ResponseEntity<WrapperResponse<MaquinariaDTO>> nuevaMaquinaria(
+            @RequestBody MaquinariaDTO maquinaria
+    ){
+        Maquinaria nuevaMaquinaria = maquinariaService.crearNuevaMaquinaria(maquinariaConverter.fromDTO(maquinaria));
+        MaquinariaDTO response = maquinariaConverter.fromEntity(nuevaMaquinaria);
+        return new WrapperResponse<>(true, "success", response)
+                .createResponse(HttpStatus.CREATED);
     }
 
     @GetMapping
-    public ResponseEntity<List<Maquinaria>> obtenerTodasLasMaquinarias(){
-        List<Maquinaria> todosLasMaquinarias = maquinariaService.obtenerTodosLasMaquinarias();
-        return new ResponseEntity<>(todosLasMaquinarias, HttpStatus.OK);
+    public ResponseEntity<WrapperResponse<List<MaquinariaDTO>>> obtenerTodasLasMaquinarias(
+            @RequestParam(value = "offset", required = false, defaultValue = "0") Integer pageNumber,
+            @RequestParam(value = "limit", required = false, defaultValue = "5") Integer pageSize
+    ){
+        Pageable page = PageRequest.of(pageNumber, pageSize);
+        List<Maquinaria> todosLasMaquinarias = maquinariaService.obtenerTodosLasMaquinarias(page);
+        List<MaquinariaDTO> response = maquinariaConverter.fromEntity(todosLasMaquinarias);
+        return new WrapperResponse<>(true, "success", response)
+                .createResponse(HttpStatus.OK);
     }
 
     @GetMapping(value="/{id}")
-    public ResponseEntity<Maquinaria> consultarPorId(@PathVariable(value = "id") Long id){
+    public ResponseEntity<WrapperResponse<MaquinariaDTO>> consultarPorId(
+            @PathVariable(value = "id") Long id
+    ){
         Maquinaria obtenerMaquinaria = maquinariaService.obtenerMaquinariaPorId(id);
-        return new ResponseEntity<>(obtenerMaquinaria, HttpStatus.OK);
+        MaquinariaDTO response = maquinariaConverter.fromEntity(obtenerMaquinaria);
+        return new WrapperResponse<>(true, "success", response)
+                .createResponse(HttpStatus.OK);
     }
 
     @PutMapping(value="/{id}")
-    public ResponseEntity<Maquinaria> actualizarPorId(@PathVariable(value = "id") Long id, @RequestBody MaquinariaDTO maquinaria){
-        Maquinaria actualizacionMaquinaria = maquinariaService.actualizarDatosMaquinaria(id, maquinaria);
-        return new ResponseEntity<>(actualizacionMaquinaria, HttpStatus.OK);
+    public ResponseEntity<WrapperResponse<MaquinariaDTO>> actualizarPorId(
+            @PathVariable(value = "id") Long id,
+            @RequestBody Maquinaria maquinaria
+    ){
+        Maquinaria actualizacionMaquinaria = maquinariaService.actualizarMaquinaria(id, maquinaria);
+        MaquinariaDTO response = maquinariaConverter.fromEntity(actualizacionMaquinaria);
+        return new WrapperResponse<>(true, "success", response)
+                .createResponse(HttpStatus.OK);
     }
 }

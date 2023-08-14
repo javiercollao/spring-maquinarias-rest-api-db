@@ -1,27 +1,71 @@
 package maquinariasapp.controllers;
 
+import maquinariasapp.converters.RepuestoConverter;
+import maquinariasapp.dtos.ProveedorDTO;
+import maquinariasapp.dtos.RepuestoDTO;
+import maquinariasapp.entity.Repuesto;
+import maquinariasapp.service.impl.RepuestoService;
+import maquinariasapp.utils.WrapperResponse;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/repuestos")
 public class RepuestoController {
 
-    @GetMapping(value="/repuesto/consultar/")
-    public ResponseEntity<String> consultarPorId(){
-        return new ResponseEntity<String>("Consulta por Codigo,Repuesto",null, HttpStatus.OK);
+    @Autowired
+    RepuestoService repuestoService;
+
+    @Autowired
+    RepuestoConverter repuestoConverter;
+
+    @PostMapping
+    public ResponseEntity<WrapperResponse<RepuestoDTO>> crearNuevoRepuesto(
+            @RequestBody RepuestoDTO repuesto
+    ){
+        Repuesto nuevoRepuesto = repuestoService.crearNuevoRepuesto(repuestoConverter.fromDTO(repuesto));
+        RepuestoDTO response = repuestoConverter.fromEntity(nuevoRepuesto);
+        return new WrapperResponse<>(true, "success", response)
+                .createResponse(HttpStatus.CREATED);
     }
 
-    @GetMapping(value="/repuesto/actualizar/")
-    public ResponseEntity<String> actualizarPorId(){
-        return new ResponseEntity<String>("Actualizar por codigo, Repuesto",null, HttpStatus.OK);
+    @GetMapping
+    public ResponseEntity<WrapperResponse<List<RepuestoDTO>>> obtenerTodosLosRepuestos(
+            @RequestParam(value = "offset", required = false, defaultValue = "0") Integer pageNumber,
+            @RequestParam(value = "limit", required = false, defaultValue = "5") Integer pageSize
+    ){
+        Pageable page = PageRequest.of(pageNumber, pageSize);
+        List<Repuesto> consulta = repuestoService.obtenerTodosLosRepuestos(page);
+        List<RepuestoDTO> response = repuestoConverter.fromEntity(consulta);
+        return new WrapperResponse<>(true, "success", response)
+                .createResponse(HttpStatus.OK);
     }
 
-    @GetMapping(value="/repuesto/ingresar/")
-    public ResponseEntity<String> IngresarNuevo(){
-        return new ResponseEntity<String>("Ingresar nuevo Repuesto",null, HttpStatus.OK);
+    @GetMapping(value="/{id}")
+    public ResponseEntity<WrapperResponse<RepuestoDTO>> obtenerRepuestoPorId(
+            @PathVariable(value = "id") Long id
+    ){
+        Repuesto consulta = repuestoService.obtenerRepuestoPorId(id);
+        RepuestoDTO response = repuestoConverter.fromEntity(consulta);
+        return new WrapperResponse<>(true, "success", response)
+                .createResponse(HttpStatus.OK);
     }
+
+    @PutMapping(value="/{id}")
+    public ResponseEntity<WrapperResponse<RepuestoDTO>> actualizarDatosRepuesto(
+            @PathVariable(value = "id") Long id,
+            @RequestBody RepuestoDTO repuesto
+    ){
+        Repuesto actualizarRepuesto = repuestoService.actualizarDatosDeRepuesto(id,repuestoConverter.fromDTO(repuesto));
+        RepuestoDTO response = repuestoConverter.fromEntity(actualizarRepuesto);
+        return new WrapperResponse<>(true, "success", response)
+                .createResponse(HttpStatus.OK);
+    }
+
 }
