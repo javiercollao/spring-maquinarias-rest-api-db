@@ -7,6 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class MaquinariaDTO {
+    private Long id_maquinaria;
     private String patente_maquinaria;
     private String nombre_maquinaria;
     private String tipo_maquinaria;
