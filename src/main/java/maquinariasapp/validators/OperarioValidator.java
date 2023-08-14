@@ -6,12 +6,12 @@ import maquinariasapp.exceptions.ValidateServiceException;
 import java.util.regex.Pattern;
 
 public class OperarioValidator {
-    public static void validacionDeGuardado(Operario operario){
+    public void validacionDeGuardado(Operario operario){
          if (operario.getCorreo_operario() == null || operario.getCorreo_operario().isEmpty()) {
             throw new ValidateServiceException("El correo de operario es requerido");
         }
 
-        if (!this.validateEmail(operario.getCorreo_operario)){
+        if (!this.validateEmail(operario.getCorreo_operario())){
             throw new ValidateServiceException("El correo ingresado no es válido");
         }
 
