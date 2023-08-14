@@ -23,8 +23,12 @@ public class RepuestoService implements IRepuestoService {
     public Repuesto crearNuevoRepuesto(Repuesto repuesto) {
         try{
             return repuestoRepository.save(repuesto);
-        } catch() {
-            return null;
+        } catch (ValidateServiceException | NoDataFoundException e){
+            log.info(e.getMessage(), e);
+            throw e;
+        } catch (Exception e){
+            log.error(e.getMessage(), e);
+            throw new GeneralServiceException(e.getMessage(), e);
         }
     }
 
@@ -64,7 +68,7 @@ public class RepuestoService implements IRepuestoService {
                 .orElseThrow(()-> new NoDataFoundException("No existe el registro con ese ID."));
             resultado.setNombre_repuesto(repuesto.getNombre_repuesto());
             resultado.setDesc_repuesto(repuesto.getDesc_repuesto());
-            repuestoRepository.save(resultado);
+            return repuestoRepository.save(resultado);
         } catch (ValidateServiceException | NoDataFoundException e){
             log.info(e.getMessage(), e);
             throw e;
