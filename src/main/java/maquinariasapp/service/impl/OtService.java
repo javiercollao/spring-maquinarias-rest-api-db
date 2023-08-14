@@ -68,7 +68,7 @@ public class OtService implements IOtService {
             Operario operarioResultado = operarioRepository.findById(operarioId)
                  .orElseThrow(()-> new NoDataFoundException("No existe el registro de operario con ese ID."));
             Ot registro = new Ot();
-            registro.setDesc_ot(ot.setDesc_ot());
+            registro.setDesc_ot(ot.getDesc_ot());
             registro.setFecha_ot(LocalDateTime.now());
             registro.setProxima_fecha_ot(LocalDateTime.now().plusWeeks(1));
             registro.setObservacion_ot(ot.getObservacion_ot());
@@ -117,6 +117,7 @@ public class OtService implements IOtService {
                 Ot elementoMasReciente = ultimoOt.get();
                 return elementoMasReciente;
             }
+            return null;
         } catch (ValidateServiceException | NoDataFoundException e){
             log.info(e.getMessage(), e);
             throw e;
@@ -131,7 +132,7 @@ public class OtService implements IOtService {
         try{
             Ot otResultado = otRepository.findById(otId)
                  .orElseThrow(()-> new NoDataFoundException("No existe el registro con ese ID."));
-            otResultado.setDesc_ot(ot.setDesc_ot());
+            otResultado.setDesc_ot(ot.getDesc_ot());
             otResultado.setFecha_ot(ot.getFecha_ot());
             otResultado.setProxima_fecha_ot(ot.getProxima_fecha_ot());
             otResultado.setObservacion_ot(ot.getObservacion_ot());

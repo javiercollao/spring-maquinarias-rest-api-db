@@ -1,10 +1,8 @@
 package maquinariasapp.dtos;
 
-import jakarta.persistence.Column;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
-
 @Builder
 @Getter
 @Setter
