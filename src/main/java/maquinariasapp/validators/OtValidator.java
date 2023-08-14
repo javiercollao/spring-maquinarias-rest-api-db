@@ -9,11 +9,11 @@ public class OtValidator {
             throw new ValidateServiceException("La descripción de la ot es requerida");
         }
 
-        if (ot.getFecha_ot() == null || ot.getFecha_ot().isEmpty()) {
+        if (ot.getFecha_ot() == null) {
             throw new ValidateServiceException("La fecha de la ot es requerida");
         }
 
-        if (ot.getProxima_fecha_ot() == null || ot.getProxima_fecha_ot().isEmpty()) {
+        if (ot.getProxima_fecha_ot() == null) {
             throw new ValidateServiceException("La proxima fecha de evaluación es requerida");
         }
 
