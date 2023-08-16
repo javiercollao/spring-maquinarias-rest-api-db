@@ -10,6 +10,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -35,6 +36,7 @@ public class OperarioController {
     }
 
     @GetMapping
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<WrapperResponse<List<OperarioDTO>>> obtenerOperarios(
             @RequestParam(value = "offset", required = false, defaultValue = "0") Integer pageNumber,
             @RequestParam(value = "limit", required = false, defaultValue = "5") Integer pageSize
@@ -47,6 +49,7 @@ public class OperarioController {
     }
 
     @GetMapping(value="/{id}")
+    @PreAuthorize("hasAuthority('ROLE_MECANICO') or hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<WrapperResponse<OperarioDTO>> consultarPorId(
             @PathVariable(value = "id") Long id
     ){
@@ -57,6 +60,7 @@ public class OperarioController {
     }
 
     @PutMapping(value = "/{id}")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<WrapperResponse<OperarioDTO>> actualizarDatosOperarios(
             @PathVariable(value = "id") Long id,
             @RequestBody OperarioDTO operario

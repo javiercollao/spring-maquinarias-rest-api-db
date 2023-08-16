@@ -10,6 +10,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,6 +26,7 @@ public class OtController {
     OtConverter otConverter;
 
     @PostMapping(value = "/operario/{id_operario}/maquinaria/{id_maquinaria}")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<WrapperResponse<OtDTO>> crearNuevaOt(
             @RequestBody OtDTO ot,
             @PathVariable(value = "id_operario") Long idOperario,
@@ -37,6 +39,7 @@ public class OtController {
     }
 
     @GetMapping
+    @PreAuthorize("hasAuthority('ROLE_MECANICO') or hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<WrapperResponse<List<OtDTO>>> obtenerOts(
             @RequestParam(value = "offset", required = false, defaultValue = "0") Integer pageNumber,
             @RequestParam(value = "limit", required = false, defaultValue = "5") Integer pageSize
@@ -49,6 +52,7 @@ public class OtController {
     }
 
     @GetMapping(value = "/maquinaria/{id}")
+    @PreAuthorize("hasAuthority('ROLE_MECANICO') or hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<WrapperResponse<OtDTO>> obtenerOtPorIdMaquinaria(
             @PathVariable(value = "id") Long idMaquinaria
     ){
@@ -60,6 +64,7 @@ public class OtController {
 
 
     @GetMapping(value = "/{id}")
+    @PreAuthorize("hasAuthority('ROLE_MECANICO') or hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<WrapperResponse<OtDTO>> obtenerOtPorId(
             @PathVariable(value = "id") Long id
     ){
@@ -70,6 +75,7 @@ public class OtController {
     }
 
     @PutMapping(value = "/{id}")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<WrapperResponse<OtDTO>> actualizarDatosOt(
             @PathVariable(value = "id") Long id,
             @RequestBody OtDTO ot

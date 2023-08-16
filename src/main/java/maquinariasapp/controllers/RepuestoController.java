@@ -10,6 +10,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,6 +26,7 @@ public class RepuestoController {
     RepuestoConverter repuestoConverter;
 
     @PostMapping
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<WrapperResponse<RepuestoDTO>> crearNuevoRepuesto(
             @RequestBody RepuestoDTO repuesto
     ){
@@ -35,6 +37,7 @@ public class RepuestoController {
     }
 
     @GetMapping
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<WrapperResponse<List<RepuestoDTO>>> obtenerTodosLosRepuestos(
             @RequestParam(value = "offset", required = false, defaultValue = "0") Integer pageNumber,
             @RequestParam(value = "limit", required = false, defaultValue = "5") Integer pageSize
@@ -47,6 +50,7 @@ public class RepuestoController {
     }
 
     @GetMapping(value="/{id}")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<WrapperResponse<RepuestoDTO>> obtenerRepuestoPorId(
             @PathVariable(value = "id") Long id
     ){
@@ -57,6 +61,7 @@ public class RepuestoController {
     }
 
     @PutMapping(value="/{id}")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<WrapperResponse<RepuestoDTO>> actualizarDatosRepuesto(
             @PathVariable(value = "id") Long id,
             @RequestBody RepuestoDTO repuesto

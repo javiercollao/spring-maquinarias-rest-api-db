@@ -8,6 +8,7 @@ import maquinariasapp.utils.WrapperResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,6 +24,7 @@ public class ProveedorRepuestoController {
     ProveedorRepuestoConverter proveedorRepuestoConverter;
 
     @PostMapping(value="/proveedor/{id_proveedor}/repuesto/{id_repuesto}")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<WrapperResponse<ProveedorRepuestoDTO>> crearRelacionProveedorRepuesto(
             @PathVariable(value = "id_proveedor") Long idProveedor,
             @PathVariable(value = "id_repuesto") Long idRepuesto,
@@ -35,6 +37,7 @@ public class ProveedorRepuestoController {
     }
 
     @DeleteMapping(value="/{id}")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<WrapperResponse<String>> eliminarRelacion(
             @PathVariable(value = "id") Long idProveedorRepuesto
     ){
@@ -44,6 +47,7 @@ public class ProveedorRepuestoController {
     }
 
     @GetMapping(value = "/proveedor/{proveedor_id}")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<WrapperResponse<List<ProveedorRepuestoDTO>>> obtenerTodosLosProductosSegunProveedor(
             @PathVariable(value = "proveedor_id") Long idProveedor
     ){
@@ -54,6 +58,7 @@ public class ProveedorRepuestoController {
     }
 
     @GetMapping(value = "/repuesto/{repuesto_id}")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<WrapperResponse<List<ProveedorRepuestoDTO>>> obtenerTodosLosProveedoresSegunRepuesto(
             @PathVariable(value = "repuesto_id") Long idRepuesto
     ){
@@ -64,6 +69,7 @@ public class ProveedorRepuestoController {
     }
 
     @PutMapping(value = "/{id}")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<WrapperResponse<ProveedorRepuestoDTO>> actualizarDatosProducto(
             @PathVariable(value = "id") Long id,
             @RequestBody ProveedorRepuestoDTO proveedorRepuesto

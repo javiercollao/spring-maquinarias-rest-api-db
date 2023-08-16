@@ -26,6 +26,7 @@ public class MaquinariaController {
     MaquinariaConverter maquinariaConverter;
 
     @PostMapping
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<WrapperResponse<MaquinariaDTO>> nuevaMaquinaria(
             @RequestBody MaquinariaDTO maquinaria
     ){
@@ -36,7 +37,7 @@ public class MaquinariaController {
     }
 
     @GetMapping
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @PreAuthorize("hasAuthority('ROLE_MECANICO') or hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<WrapperResponse<List<MaquinariaDTO>>> obtenerTodasLasMaquinarias(
             @RequestParam(value = "offset", required = false, defaultValue = "0") Integer pageNumber,
             @RequestParam(value = "limit", required = false, defaultValue = "5") Integer pageSize
@@ -49,6 +50,7 @@ public class MaquinariaController {
     }
 
     @GetMapping(value="/{id}")
+    @PreAuthorize("hasAuthority('ROLE_MECANICO') or hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<WrapperResponse<MaquinariaDTO>> consultarPorId(
             @PathVariable(value = "id") Long id
     ){
@@ -59,6 +61,7 @@ public class MaquinariaController {
     }
 
     @PutMapping(value="/{id}")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<WrapperResponse<MaquinariaDTO>> actualizarPorId(
             @PathVariable(value = "id") Long id,
             @RequestBody Maquinaria maquinaria

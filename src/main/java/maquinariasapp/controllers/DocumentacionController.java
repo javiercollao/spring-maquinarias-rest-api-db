@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import org.springframework.data.domain.Pageable;
@@ -25,6 +26,7 @@ public class DocumentacionController {
     DocumentacionConverter documentacionConverter;
 
     @PostMapping
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<WrapperResponse<DocumentacionDTO>> crearDocumentacion(
             @RequestBody DocumentacionDTO documentacionDTO
     ){
@@ -35,6 +37,7 @@ public class DocumentacionController {
     }
 
     @GetMapping
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<WrapperResponse<List<DocumentacionDTO>>> obtenerTodasLasDocumentaciones(
             @RequestParam(value = "offset", required = false, defaultValue = "0") Integer pageNumber,
             @RequestParam(value = "limit", required = false, defaultValue = "5") Integer pageSize
@@ -51,6 +54,7 @@ public class DocumentacionController {
     }
 
     @GetMapping(value="/{id}")
+    @PreAuthorize("hasAuthority('ROLE_MECANICO') or hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<WrapperResponse<DocumentacionDTO>> consultarPorId(
             @PathVariable(value = "id") Long id
     ){
@@ -64,6 +68,7 @@ public class DocumentacionController {
     }
 
     @GetMapping(value = "/maquinaria/{id_maquinaria}")
+    @PreAuthorize("hasAuthority('ROLE_MECANICO') or hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<WrapperResponse<List<DocumentacionDTO>>> obtenerDocumentacionesDeMaquinaria(
             @PathVariable(value = "id_maquinaria") Long id_maquinaria,
             @RequestParam(value = "offset", required = false, defaultValue = "0") Integer pageNumber,
@@ -81,6 +86,7 @@ public class DocumentacionController {
     }
 
     @PutMapping (value="/{id}")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<WrapperResponse<DocumentacionDTO>> actualizarDocumentacion(
             @PathVariable(value = "id") Long id,
             @RequestBody DocumentacionDTO documentacionDTO
@@ -92,6 +98,7 @@ public class DocumentacionController {
     }
 
     @PutMapping (value="/{id_documentacion}/asignar-maquinaria/{id_maquinaria}")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<DocumentacionDTO> agregarDocumentacionAMaquinaria(
             @PathVariable(value = "id_documentacion") Long id_documentacion,
             @PathVariable(value = "id_maquinaria") Long id_maquinaria
@@ -102,6 +109,7 @@ public class DocumentacionController {
     }
 
     @PutMapping (value="/{id_documentacion}/quitar-maquinaria/{id_maquinaria}")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<DocumentacionDTO> eliminarRelacionDeMaquinariaConDocumentacion(
             @PathVariable(value = "id_documentacion") Long id_documentacion,
             @PathVariable(value = "id_maquinaria") Long id_maquinaria
