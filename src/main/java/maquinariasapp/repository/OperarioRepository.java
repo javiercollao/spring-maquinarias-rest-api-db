@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface OperarioRepository extends JpaRepository<Operario, Long> {
+    public Operario findByUsername(String username);
 }

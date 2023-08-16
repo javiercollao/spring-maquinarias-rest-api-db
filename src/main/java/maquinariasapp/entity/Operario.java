@@ -21,6 +21,13 @@ public class Operario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_operario;
 
+    @Column(unique = true)
+    private String username;
+
+    private String password;
+
+    private boolean enabled;
+
     @Column(name="correo_operario", nullable = false)
     private String correo_operario;
 
@@ -37,5 +44,9 @@ public class Operario {
     @JoinColumn(name = "id_ot")
     @JsonIgnore
     private List<Ot> ots = new ArrayList<>();
+
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id")
+    private List<Role> roles;
 
 }
