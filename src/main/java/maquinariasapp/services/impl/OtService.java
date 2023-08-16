@@ -1,4 +1,4 @@
-package maquinariasapp.service.impl;
+package maquinariasapp.services.impl;
 
 import lombok.extern.slf4j.Slf4j;
 import maquinariasapp.entity.Maquinaria;

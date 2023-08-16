@@ -1,12 +1,12 @@
-package maquinariasapp.service.impl;
+package maquinariasapp.services.impl;
 
 import lombok.extern.slf4j.Slf4j;
-import maquinariasapp.entity.Proveedor;
+import maquinariasapp.entity.Repuesto;
 import maquinariasapp.exceptions.GeneralServiceException;
 import maquinariasapp.exceptions.NoDataFoundException;
 import maquinariasapp.exceptions.ValidateServiceException;
-import maquinariasapp.repository.ProveedorRepository;
-import maquinariasapp.services.IProveedorService;
+import maquinariasapp.repository.RepuestoRepository;
+import maquinariasapp.services.IRepuestoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,17 +16,16 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 @Slf4j
 @Service
-public class ProveedorService implements IProveedorService {
+public class RepuestoService implements IRepuestoService {
+
     @Autowired
-    private ProveedorRepository proveedorRepository;
+    RepuestoRepository repuestoRepository;
 
     @Override
     @Transactional
-    public Proveedor crearNuevoProveedor(Proveedor proveedor) {
-        try {
-            Proveedor nuevoProveedor = new Proveedor();
-            nuevoProveedor.setNombre_proveedor(proveedor.getNombre_proveedor());
-            return proveedorRepository.save(nuevoProveedor);
+    public Repuesto crearNuevoRepuesto(Repuesto repuesto) {
+        try{
+            return repuestoRepository.save(repuesto);
         } catch (ValidateServiceException | NoDataFoundException e){
             log.info(e.getMessage(), e);
             throw e;
@@ -38,11 +37,10 @@ public class ProveedorService implements IProveedorService {
 
     @Override
     @Transactional(readOnly = true)
-    public Proveedor obtenerProveedorPorId(Long id) {
+    public List<Repuesto> obtenerTodosLosRepuestos(Pageable page) {
         try{
-            Proveedor registro = proveedorRepository.findById(id)
-                .orElseThrow(()-> new NoDataFoundException("No existe el registro con ese ID."));
-            return registro;
+            List<Repuesto> resultado = repuestoRepository.findAll(page).toList();
+            return resultado;
         } catch (ValidateServiceException | NoDataFoundException e){
             log.info(e.getMessage(), e);
             throw e;
@@ -54,9 +52,11 @@ public class ProveedorService implements IProveedorService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<Proveedor> obtenerProveedores(Pageable page) {
+    public Repuesto obtenerRepuestoPorId(Long id) {
         try{
-            return proveedorRepository.findAll(page).toList();
+            Repuesto resultado = repuestoRepository.findById(id)
+                .orElseThrow(()-> new NoDataFoundException("No existe el registro con ese ID."));
+            return resultado;
         } catch (ValidateServiceException | NoDataFoundException e){
             log.info(e.getMessage(), e);
             throw e;
@@ -68,12 +68,13 @@ public class ProveedorService implements IProveedorService {
 
     @Override
     @Transactional
-    public Proveedor actualizarDatosProveedor(Long id, Proveedor proveedor) {
+    public Repuesto actualizarDatosDeRepuesto(Long id, Repuesto repuesto) {
         try{
-            Proveedor registro = proveedorRepository.findById(id)
+            Repuesto resultado = repuestoRepository.findById(id)
                 .orElseThrow(()-> new NoDataFoundException("No existe el registro con ese ID."));
-            registro.setNombre_proveedor(proveedor.getNombre_proveedor());
-            return registro;
+            resultado.setNombre_repuesto(repuesto.getNombre_repuesto());
+            resultado.setDesc_repuesto(repuesto.getDesc_repuesto());
+            return repuestoRepository.save(resultado);
         } catch (ValidateServiceException | NoDataFoundException e){
             log.info(e.getMessage(), e);
             throw e;

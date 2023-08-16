@@ -1,10 +1,9 @@
 package maquinariasapp.controllers;
 
 import maquinariasapp.converters.RepuestoConverter;
-import maquinariasapp.dtos.ProveedorDTO;
 import maquinariasapp.dtos.RepuestoDTO;
 import maquinariasapp.entity.Repuesto;
-import maquinariasapp.service.impl.RepuestoService;
+import maquinariasapp.services.impl.RepuestoService;
 import maquinariasapp.utils.WrapperResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;

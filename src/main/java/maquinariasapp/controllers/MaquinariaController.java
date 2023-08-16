@@ -3,13 +3,14 @@ package maquinariasapp.controllers;
 import maquinariasapp.converters.MaquinariaConverter;
 import maquinariasapp.dtos.MaquinariaDTO;
 import maquinariasapp.entity.Maquinaria;
-import maquinariasapp.service.impl.MaquinariaService;
+import maquinariasapp.services.impl.MaquinariaService;
 import maquinariasapp.utils.WrapperResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -35,6 +36,7 @@ public class MaquinariaController {
     }
 
     @GetMapping
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<WrapperResponse<List<MaquinariaDTO>>> obtenerTodasLasMaquinarias(
             @RequestParam(value = "offset", required = false, defaultValue = "0") Integer pageNumber,
             @RequestParam(value = "limit", required = false, defaultValue = "5") Integer pageSize

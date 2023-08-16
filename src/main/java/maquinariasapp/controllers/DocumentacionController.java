@@ -3,7 +3,7 @@ package maquinariasapp.controllers;
 import maquinariasapp.converters.DocumentacionConverter;
 import maquinariasapp.dtos.DocumentacionDTO;
 import maquinariasapp.entity.Documentacion;
-import maquinariasapp.service.impl.DocumentacionService;
+import maquinariasapp.services.impl.DocumentacionService;
 import maquinariasapp.utils.WrapperResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;

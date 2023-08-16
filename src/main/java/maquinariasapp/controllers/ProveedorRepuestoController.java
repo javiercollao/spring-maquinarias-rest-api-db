@@ -1,10 +1,9 @@
 package maquinariasapp.controllers;
 
 import maquinariasapp.converters.ProveedorRepuestoConverter;
-import maquinariasapp.dtos.ProveedorDTO;
 import maquinariasapp.dtos.ProveedorRepuestoDTO;
 import maquinariasapp.entity.ProveedorRepuesto;
-import maquinariasapp.service.impl.ProveedorRepuestoService;
+import maquinariasapp.services.impl.ProveedorRepuestoService;
 import maquinariasapp.utils.WrapperResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

@@ -3,7 +3,7 @@ package maquinariasapp.controllers;
 import maquinariasapp.converters.OperarioConverter;
 import maquinariasapp.dtos.OperarioDTO;
 import maquinariasapp.entity.Operario;
-import maquinariasapp.service.impl.OperarioService;
+import maquinariasapp.services.impl.OperarioService;
 import maquinariasapp.utils.WrapperResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -26,9 +26,9 @@ public class OperarioController {
 
     @PostMapping
     public ResponseEntity<WrapperResponse<OperarioDTO>> nuevoOperario(
-            @RequestBody OperarioDTO operario
+            @RequestBody Operario operario
     ){
-        Operario nuevoOperario = operarioService.crearNuevoOperario(operarioConverter.fromDTO(operario));
+        Operario nuevoOperario = operarioService.crearNuevoOperario(operario);
         OperarioDTO response = operarioConverter.fromEntity(nuevoOperario);
         return new WrapperResponse<>(true, "success", response)
                 .createResponse(HttpStatus.CREATED);

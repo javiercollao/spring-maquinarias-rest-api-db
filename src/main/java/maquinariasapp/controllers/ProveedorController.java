@@ -3,7 +3,7 @@ package maquinariasapp.controllers;
 import maquinariasapp.converters.ProveedorConverter;
 import maquinariasapp.dtos.ProveedorDTO;
 import maquinariasapp.entity.Proveedor;
-import maquinariasapp.service.impl.ProveedorService;
+import maquinariasapp.services.impl.ProveedorService;
 import maquinariasapp.utils.WrapperResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
