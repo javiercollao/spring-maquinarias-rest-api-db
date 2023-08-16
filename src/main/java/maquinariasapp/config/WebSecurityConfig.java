@@ -61,6 +61,8 @@ public class WebSecurityConfig {
                 .authorizeRequests(auth -> auth
                         .requestMatchers(new AntPathRequestMatcher("/authenticate")).permitAll()
                         .requestMatchers(new AntPathRequestMatcher("/api/v1/operarios/**")).permitAll()
+                        .requestMatchers(new AntPathRequestMatcher("/swagger-ui/**")).permitAll()
+                        .requestMatchers(new AntPathRequestMatcher("/v3/api-docs/**")).permitAll()
                         .anyRequest().authenticated())
                 .exceptionHandling(exceptionHandling -> exceptionHandling.authenticationEntryPoint(jwtAuthenticationEntryPoint))
                 .formLogin(formLogin -> formLogin.disable())
