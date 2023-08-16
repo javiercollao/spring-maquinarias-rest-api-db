@@ -33,8 +33,34 @@ Podras ver los endpoints en:
 http://localhost:PORT/swagger-ui/index.html
 ```
 
+#### Permisos
 
+Existen dos roles en la aplicación:
+* ROLE_ADMIN
+* ROLE_MECANICO
 
+Para poder utilizarlos debes registrarte en el endpoint
+```
+POST /api/v1/operarios
+```
+Por ejemplo el siguiente body es para registrar un admin:
 
+```
+BODY
+{ 
+    "username":"javier",
+    "password": "1234",
+    "enable": true,
+    "correo_operario": "javier@maquinaria.cl",
+    "nombre_operario": "Javier",
+    "apellido_operario": "Collao",
+    "cargo_operario": "Jefe de mantenimiento",
+    "roles":[
+        {
+            "id":0,
+            "rol":"ROLE_ADMIN"
+        }
+    ]
+}
+```
 
- 
